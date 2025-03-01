@@ -1,3 +1,4 @@
+import { log } from "../lib/log.js";
 import { POST_OUTCOME } from "./messages.js";
 
 export function POSTReporter() {
@@ -7,11 +8,11 @@ export function POSTReporter() {
         if(messageType !== POST_OUTCOME) return;
         if(message.pass) {
     
-            console.log(`✅ ${message.class.name} - ${message.scenarios.map(s => s.name).join(", ")}`);
+            log(`✅ ${message.class.name} POST - ${message.scenarios.map(s => s.name).join(", ")}`);
     
         } else {
     
-            throw new Error(`${message.class.name}\n${message.scenarios.map(scenario).join("\n")}`);
+            throw new Error(`POST ${message.class.name}\n${message.scenarios.map(scenario).join("\n")}`);
     
         }
     

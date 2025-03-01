@@ -12,7 +12,7 @@ export function Hub(name, ...members) {
         
         const messageList = (typeof messages?.[0] === "symbol") ? [messages] : messages;
 
-        console.log(new Date(), name, "<==", partName(from), ...messageList.map(x => x[0]));
+        console.log(new Date(), partName(from), "-->[]", name, ...messageList.map(x => x[0]));
         
         const mapped = messageList.map((m) => [m, from]);
         stack.push(...mapped);
@@ -22,7 +22,7 @@ export function Hub(name, ...members) {
 
     function addReceiver(receiver) {
 
-        console.log(new Date(), name, "+++", partName(receiver));
+        console.log(new Date(), name, "[]+++", partName(receiver));
         members.push(receiver);
 
     }
@@ -34,7 +34,7 @@ export function Hub(name, ...members) {
             console.warn("Receiver to remove not found");
         else {
 
-            console.log(new Date(), name, "---", partName(receiver));
+            console.log(new Date(), name, "[]---", partName(receiver));
             members.splice(foundIndex, 1);
 
         }
@@ -96,7 +96,7 @@ export function Hub(name, ...members) {
 
     async function send([[messageType, message], from]) {
 
-        console.log(new Date(), name, "--{", messageType, "from", partName(from));
+        console.log(new Date(), name, "[]--<", messageType, "from", partName(from));
         let receivers = members.filter(m => m !== from);
         while (receivers.length) {
 

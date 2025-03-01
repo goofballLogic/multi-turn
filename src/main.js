@@ -17,7 +17,7 @@ var main = Hub("main",
     UserConsole()
 );
 
-main(POST, {});
+main(POST);
 main(STATEMENT, { args: [ "Hello, world" ] });
 
 loggingComplete();

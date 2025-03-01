@@ -12,7 +12,7 @@ export function POSTReporter(log = default_log) {
     
         } else {
     
-            throw new Error(`POST ${message.class.name}\n${message.scenarios.map(scenario).join("\n")}`);
+            throw new Error(`${message.class.name} POST failure\n${message.scenarios.map(scenario).join("\n")}`);
     
         }
     

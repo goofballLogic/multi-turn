@@ -51,7 +51,7 @@ export function POSTReporterTest() {
                     ],
                     "On fail it is throwing an error with details": [
                         negativeTestException.message,
-                        "POST Some class\n - ✅ 1. S1\n - ❌ 2. S2\n      Expected: 1\n      Actual: 2"
+                        "Some class POST failure\n - ✅ 1. S1\n - ❌ 2. S2\n      Expected: 1\n      Actual: 2"
                     ]
                 })
             }

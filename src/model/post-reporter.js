@@ -1,7 +1,7 @@
-import { log } from "../lib/log.js";
+import { log as default_log } from "../lib/log.js";
 import { POST_OUTCOME } from "./messages.js";
 
-export function POSTReporter() {
+export function POSTReporter(log = default_log) {
 
     return function handlePostOutcomes(messageType, message) {
             
@@ -16,7 +16,7 @@ export function POSTReporter() {
     
         }
     
-        function scenario({ number, name, pass, actual, expected }) {
+        function scenario({ name, pass, actual, expected }, number) {
     
             if(pass) {
                 

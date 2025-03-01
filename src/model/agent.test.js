@@ -24,11 +24,11 @@ export function AgentTest() {
             { 
                 class: Agent, 
                 ...resolveScenarios({
-                    "The expected message type": [
+                    "Responding with LLM_RESPONDED": [
                         response[0],
                         LLM_RESPONDED
                     ],
-                    "The text of the response": [
+                    "Message includes the text from the AI": [
                         response[1]?.text,
                         `Hello user {"messages":[{"role":"user","content":"Hello world"}]}`
                     ]

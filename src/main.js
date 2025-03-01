@@ -4,9 +4,11 @@ import { Agent } from "./model/agent.js";
 import { AgentTest } from "./model/agent.test.js";
 import { POST } from "./model/messages.js";
 import { POSTReporter } from "./model/post-reporter.js";
+import { POSTReporterTest } from "./model/post-reporter.test.js";
 
 var main = Hub("main",
     POSTReporter(),
+    POSTReporterTest(),
     AgentTest(),
     Agent(),
 );

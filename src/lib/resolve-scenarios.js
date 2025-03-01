@@ -7,7 +7,9 @@ export function resolveScenarios(scenarioDefinitions) {
             name,
             actual,
             expected,
-            pass: actual === expected
+            pass: typeof actual === "object" 
+                ? JSON.stringify(actual) === JSON.stringify(expected)
+                : actual === expected
         };
 
     }

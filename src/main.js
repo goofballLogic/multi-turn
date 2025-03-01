@@ -1,4 +1,5 @@
 import { Hub } from "./lib/hub.js";
+import { loggingComplete } from "./lib/log.js";
 import { Agent } from "./model/agent.js";
 import { AgentTest } from "./model/agent.test.js";
 import { POST } from "./model/messages.js";
@@ -10,8 +11,8 @@ var main = Hub("main",
     Agent(),
 );
 
-
 main(POST, {});
+loggingComplete();
 
 // import { GoogleGenerativeAI } from "@google/generative-ai";
 // import { question } from "readline-sync";

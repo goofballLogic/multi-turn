@@ -7,9 +7,7 @@ export function resolveScenarios(scenarioDefinitions) {
             name,
             actual,
             expected,
-            pass: typeof actual === "object"
-                ? JSON.stringify(actual) === JSON.stringify(expected)
-                : actual === expected
+            pass: equality(actual, expected)
         };
 
     }
@@ -21,3 +19,16 @@ export function resolveScenarios(scenarioDefinitions) {
     };
 
 }
+function equality(actual, expected) {
+
+    switch (typeof actual) {
+        case "symbol":
+            return actual === expected;
+        case "object":
+            return JSON.stringify(actual) === JSON.stringify(expected);
+        default:
+            return actual === expected;
+    }
+
+}
+

@@ -2,18 +2,24 @@ import { Hub } from "./lib/hub.js";
 import { loggingComplete } from "./lib/log.js";
 import { Agent } from "./model/agent.js";
 import { AgentTest } from "./model/agent.test.js";
-import { POST } from "./model/messages.js";
+import { POST, STATEMENT } from "./model/messages.js";
 import { POSTReporter } from "./model/post-reporter.js";
 import { POSTReporterTest } from "./model/post-reporter.test.js";
+import { UserConsole } from "./model/user-console.js";
+import { UserConsoleTest } from "./model/user-console.test.js";
 
 var main = Hub("main",
     POSTReporter(),
     POSTReporterTest(),
     AgentTest(),
     Agent(),
+    UserConsoleTest(),
+    UserConsole()
 );
 
 main(POST, {});
+main(STATEMENT, { args: [ "Hello, world" ] });
+
 loggingComplete();
 
 // import { GoogleGenerativeAI } from "@google/generative-ai";

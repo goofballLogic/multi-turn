@@ -24,11 +24,23 @@ export function POSTReporter(log = default_log) {
 
             } else {
 
-                return ` - ❌ ${number + 1}. ${name}\n      Expected: ${JSON.stringify(expected)}\n      Actual: ${JSON.stringify(actual)}`;
+                return ` - ❌ ${number + 1}. ${name}\n      Expected: ${document(expected)}\n      Actual: ${document(actual)}`;
 
             }
         }
 
     };
+
+}
+
+function document(x) {
+
+    switch (typeof x) {
+
+        case "symbol":
+            return x.toString();
+        default:
+            return JSON.stringify(x);
+    }
 
 }

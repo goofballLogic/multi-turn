@@ -39,6 +39,24 @@ export function POSTReporterTest() {
 
         }
 
+        // Act (3)
+        let symbolTestException;
+        try {
+
+            await sut(POST_OUTCOME, {
+                class: { name: "Some class 2" },
+                pass: false,
+                scenarios: [
+                    { name: "S1", expected: Symbol("a"), actual: Symbol("b"), pass: false },
+                ]
+            });
+
+        } catch(err) {
+
+            symbolTestException = err;
+
+        }
+
         // Assert
         return [
             POST_OUTCOME,
@@ -49,9 +67,13 @@ export function POSTReporterTest() {
                         logged[0],
                         ["✅ Some class POST - S1, S2"]
                     ],
-                    "On fail it is throwing an error with details": [
+                    "On fail: it is throwing an error with details": [
                         negativeTestException.message,
                         "Some class POST failure\n - ✅ 1. S1\n - ❌ 2. S2\n      Expected: 1\n      Actual: 2"
+                    ],
+                    "documents symbols in actual and expected": [
+                        symbolTestException.message,
+                        "Some class 2 POST failure\n - ❌ 1. S1\n      Expected: Symbol(a)\n      Actual: Symbol(b)"
                     ]
                 })
             }

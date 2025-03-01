@@ -12,7 +12,7 @@ The code uses test-driven message-oriented javascript (see https://goofballlogic
 
 The main responsiblities of the system:
 
---- 
+---
 
 ### Agent
 Marshalls messages to and from the (remote) LLM.
@@ -25,12 +25,12 @@ Sends:
 
 ---
 
-### Console
+### User console
 Marshalls message to and from the user
 
 Receives:
 - QUESTION_RAISED
-- OUTCOME
+- STATEMENT
 
 Sends:
 - QUESTION_ANSWERED
@@ -47,7 +47,7 @@ Receives:
 Sends:
 - QUESTION_RAISED
 - USER_RESPONDED
-- OUTCOME
+- STATEMENT
 
 ---
 

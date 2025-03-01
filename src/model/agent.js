@@ -7,7 +7,7 @@ if (!(openai?.chat?.completions?.create)) throw new Error("Unexpected library AP
 
 export function Agent(ai = openai) {
 
-    return async (messageType, message) => {
+    return async function AgentHandler(messageType, message) {
 
         if(messageType === USER_RESPONDED)
             return await handleUserResponse(ai, message);

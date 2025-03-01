@@ -39,12 +39,19 @@ export function UserConsoleTest() {
         // Act (2)
         await sut(STATEMENT, { args: [ "Welcome to the circus" ] });
 
+        // Act (3)
+        const response3 = await sut(QUESTION_RAISED, { function: "some_call" });
+
         // A
         return [
              POST_OUTCOME,
             {
                 class: UserConsole,
                 ...resolveScenarios({
+                    "On statement: logs to console": [
+                        logConsoleLog.shift(),
+                        ["Welcome to the circus"]
+                    ],
                     "On question raised: asks the question": [
                         logQuestions[0],
                         ["What is your favourite colour? "]
@@ -57,10 +64,10 @@ export function UserConsoleTest() {
                         response?.[1]?.text,
                         "It's blue, of course."
                     ],
-                    "On statement: logs to console": [
-                        logConsoleLog[0],
-                        ["Welcome to the circus"]
-                    ]
+                    "but, given no text, does nothing": [
+                        [logConsoleLog.length, response3],
+                        [0, undefined]
+                    ],
                 })
             }
         ];

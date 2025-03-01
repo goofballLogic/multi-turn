@@ -9,8 +9,8 @@ import { UserConsole } from "./model/user-console.js";
 import { UserConsoleTest } from "./model/user-console.test.js";
 
 var main = Hub("main",
-    POSTReporter(),
     POSTReporterTest(),
+    POSTReporter(),
     AgentTest(),
     Agent(),
     UserConsoleTest(),

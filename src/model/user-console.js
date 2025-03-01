@@ -8,9 +8,11 @@ export function UserConsole(readlineSync = defaultReadlineSync, consoleImpl = co
         switch(messageType) {
 
             case QUESTION_RAISED:
-                const text = readlineSync.question(`${message.text} `);
-                return [ QUESTION_ANSWERED, { text } ];
-
+                if(message.text) {
+                    const text = readlineSync.question(`${message.text} `);
+                    return [ QUESTION_ANSWERED, { text } ];
+                }
+                break;
             case STATEMENT:
                 consoleImpl.log(...message.args);
                 return;

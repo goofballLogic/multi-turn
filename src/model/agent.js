@@ -9,25 +9,17 @@ export function Agent(ai = openai) {
 
     return async function AgentHandler(messageType, message) {
 
-        if(messageType === USER_RESPONDED)
-            return await handleUserResponse(ai, message);
+        if(messageType === USER_RESPONDED) {
+
+            const body = {
+                messages: [ { role: "user", content: message.text } ]
+            };
+            const response = await ai.chat.completions.create(body);
+            const text = response?.choices?.[0]?.message?.content;
+            return [ LLM_RESPONDED, { text } ];
+
+        }
 
     };
-
-}
-
-async function handleUserResponse(ai, message) {
-
-    const response = await ai.chat.completions.create({
-        messages: [
-            { role: "user", content: message.text }
-        ]
-    });
-    return [
-        LLM_RESPONDED,
-        {
-            text: response?.choices?.[0]?.message?.content
-        }
-    ];
 
 }

@@ -11,11 +11,11 @@ export function Hub(name, ...members) {
     let isProcessing = false;
 
     async function receive(messages, from) {
-        
+
         const messageList = (typeof messages?.[0] === "symbol") ? [messages] : messages;
 
         log(partName(from), "-->[]", name, ...messageList.map(x => x[0]));
-        
+
         const mapped = messageList.map((m) => [m, from]);
         stack.push(...mapped);
         kick();
@@ -53,7 +53,7 @@ export function Hub(name, ...members) {
             receive([[messageType, message]], { name: "Outside" });
 
     }
-        
+
     async function kick() {
 
         if (isProcessing) return;
@@ -82,7 +82,7 @@ export function Hub(name, ...members) {
     }
 
     async function kickLoopSend() {
-        
+
         const next = stack.shift();
         try {
 
@@ -108,7 +108,7 @@ export function Hub(name, ...members) {
                 receive(outputs, receiver);
 
         }
-        
+
     }
 
 }
@@ -120,5 +120,5 @@ function partName(from) {
     if (from.name) return from.name;
     from["@name"] = "Unnamed sender " + senderSeed++;
     return from["@name"];
-    
+
 }

@@ -8,10 +8,10 @@ export function AgentTest() {
     return async function AgentTestHandler(messageType) {
 
         if(messageType !== POST) return;
-        
+
         // Arrange
         const fakeAI = new FakeAI(input => [
-            { message: { role: "assistant", content: `Hello user ${JSON.stringify(input)}` } }   
+            { message: { role: "assistant", content: `Hello user ${JSON.stringify(input)}` } }
         ]);
         const sut = Agent(fakeAI);
 
@@ -20,9 +20,9 @@ export function AgentTest() {
 
         // Assert
         return [
-            POST_OUTCOME, 
-            { 
-                class: Agent, 
+            POST_OUTCOME,
+            {
+                class: Agent,
                 ...resolveScenarios({
                     "Responding with LLM_RESPONDED": [
                         response[0],

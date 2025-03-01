@@ -1,55 +1,41 @@
 import { LLM_RESPONDED, POST, POST_OUTCOME, USER_RESPONDED } from "./messages.js";
 import { Agent } from "./agent.js";
+import { resolveScenarios } from "../lib/resolve-scenarios.js";
+import { FakeAI } from "../fixtures/FakeAI.js";
 
 export function AgentTest() {
 
-    return async function AgentTestHandler(messageType, message) {
+    return async function AgentTestHandler(messageType) {
 
-        if(messageType === POST) {
+        if(messageType !== POST) return;
+        
+        // Arrange
+        const fakeAI = new FakeAI(input => [
+            { message: { role: "assistant", content: `Hello user ${JSON.stringify(input)}` } }   
+        ]);
+        const sut = Agent(fakeAI);
 
-            const mockAI = {
-                chat: {
-                    completions: {
-                        async create(payload) {
+        // Act
+        const response = await sut(USER_RESPONDED, { text: "Hello world" });
 
-                            return {
-                                choices: [
-                                    {
-                                        message: {
-                                            role: "assistant",
-                                            content: `Hello user ${JSON.stringify(payload)}`
-                                        }
-                                    }
-                                ]
-                            };
-
-                        }
-                    }
-                }
-            };
-            const sut = Agent(mockAI);
-            const actual = await sut(USER_RESPONDED, { text: "Hello world" });
-            const actualText = actual[1]?.text;
-            const expectedText = `Hello user {"messages":[{"role":"user","content":"Hello world"}]}`;
-            return [
-                POST_OUTCOME, 
-                { 
-                    class: Agent, 
-                    pass: actualText == expectedText,
-                    scenarios: [ 
-                        { actual: actualText, expected: expectedText } 
-                    ] 
-                }
-            ];
-            
-        }
+        // Assert
+        return [
+            POST_OUTCOME, 
+            { 
+                class: Agent, 
+                ...resolveScenarios({
+                    "The expected message type": [
+                        response[0],
+                        LLM_RESPONDED
+                    ],
+                    "The text of the response": [
+                        response[1]?.text,
+                        `Hello user {"messages":[{"role":"user","content":"Hello world"}]}`
+                    ]
+                })
+            }
+        ];
 
     };
-
-}
-
-async function handleUserResponse(message) {
-
-    console.log("Handle message", message);
 
 }

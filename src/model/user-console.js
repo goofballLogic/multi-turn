@@ -1,7 +1,7 @@
 import { QUESTION_ANSWERED, QUESTION_RAISED, STATEMENT } from "./messages.js";
 import defaultReadlineSync from "readline-sync";
 
-export function UserConsole(readlineSync = defaultReadlineSync, consoleImpl = console) {
+export function UserConsole(readlineSync = defaultReadlineSync, logger = console) {
 
     return async function UserConsoleHandler(messageType, message) {
 
@@ -14,7 +14,7 @@ export function UserConsole(readlineSync = defaultReadlineSync, consoleImpl = co
                 }
                 break;
             case STATEMENT:
-                consoleImpl.log(...message.args);
+                logger.log(...message.args);
                 return;
 
         }
